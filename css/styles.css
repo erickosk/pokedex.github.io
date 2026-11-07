@@ -1,0 +1,800 @@
+/* ============================================
+   POKÉDEX - HOJA DE ESTILOS (css/styles.css)
+   Partes 1-11: diseño original. Parte 12 en adelante: animaciones y mejoras visuales.
+   ============================================ */
+
+/* 1. COLORES (variables para usarlos en todo el CSS) */
+:root {
+  --rojo: #ed1c24;
+  --rojo-oscuro: #8b0010;
+  --azul: #00a2e8;
+  --azul-boton: #3f48cc;
+  --amarillo: #ffe600;
+  --verde: #22b14c;
+  --gris: #808080;
+  --fondo: #f4f4f4;
+}
+
+/* 2. ESTILOS GENERALES */
+* {
+  box-sizing: border-box; /* el padding y el border no agrandan las cajas */
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;   /* tipografía 1: textos */
+  background: var(--fondo);
+  color: #222;
+}
+
+/* 3. ENCABEZADO (barra roja de arriba con forma de Pokédex) */
+header {
+  background: var(--rojo);
+  min-height: 150px;
+  position: relative;   /* para colocar el control de música en la franja roja */
+  padding: 15px 360px 20px 25px;   /* el espacio de la derecha queda libre para el corte */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* Forma: barra completa a la izquierda, corte diagonal y franja delgada a la derecha */
+  clip-path: polygon(0 0, 100% 0, 100% 48px, calc(100% - 300px) 48px, calc(100% - 345px) 100%, 0 100%);
+}
+
+/* Círculo azul grande y los 3 puntitos */
+.fila-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lente {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: var(--azul-boton);
+  border: 4px solid white;
+}
+.punto {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+.p1 { background: var(--rojo-oscuro); }
+.p2 { background: var(--amarillo); }
+.p3 { background: var(--verde); }
+
+header h1 {
+  font-family: 'Press Start 2P', cursive;  /* tipografía 2: títulos */
+  font-size: 22px;
+  color: white;
+  margin: 0 15px;
+}
+
+/* 4. BARRA DE NAVEGACIÓN (los tipos) */
+.menu-tipos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.menu-tipos .tipo {
+  text-decoration: none;
+  border: 2px solid white;
+  padding: 3px 12px;
+  margin: 0;
+}
+.menu-tipos .tipo:hover {
+  filter: brightness(1.15);
+}
+.menu-tipos .activo {
+  outline: 3px solid var(--amarillo);
+}
+.t-todos { background: #333; }
+
+/* 5. CONTENEDOR PRINCIPAL (tarjetas a la izquierda, panel a la derecha) */
+.contenedor {
+  display: flex;
+  gap: 25px;
+  padding: 30px;
+  align-items: flex-start;
+}
+
+.tarjetas {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* 6. TARJETAS DE POKÉMON */
+.tarjeta {
+  width: 200px;
+  background: white;
+  border: 4px solid var(--gris);
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;   /* quita el subrayado del enlace */
+  color: #222;
+}
+.tarjeta:hover {
+  background: #fffbe0;
+}
+.tarjeta img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+.tarjeta h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 13px;
+  margin: 10px 0 5px;
+}
+.tarjeta p {
+  margin: 0 0 8px;
+  color: var(--gris);
+  font-weight: 800;
+}
+
+/* Colores de borde según el tipo */
+.planta  { border-color: #4caf50; }
+.fuego   { border-color: #ff7a1a; }
+.agua    { border-color: #3d6fe0; }
+.bicho   { border-color: #8c9a10; }
+.normal  { border-color: #a8a878; }
+.veneno  { border-color: #9c4dcc; }
+.electrico { border-color: #d9a800; }
+.tierra  { border-color: #b08a2e; }
+
+/* 7. ETIQUETAS DE TIPO */
+.tipo {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  margin: 2px;
+}
+.t-planta  { background: #4caf50; }
+.t-veneno  { background: #9c4dcc; }
+.t-fuego   { background: #ff7a1a; }
+.t-normal    { background: #a8a878; }
+.t-agua      { background: #3d6fe0; }
+.t-electrico { background: #d9a800; }
+.t-hielo     { background: #3fb0c4; }
+.t-lucha     { background: #c03028; }
+.t-tierra    { background: #b08a2e; }
+.t-volador   { background: #7f94e0; }
+.t-psiquico  { background: #e0457a; }
+.t-bicho     { background: #8c9a10; }
+.t-roca      { background: #9c8626; }
+.t-fantasma  { background: #705898; }
+.t-dragon    { background: #6038f8; }
+
+/* 8. PANEL ROJO DE LA DERECHA (buscar + elemento/tipo) */
+.panel {
+  width: 240px;
+  background: var(--rojo);
+  border: 5px solid var(--rojo-oscuro);
+  border-radius: 40px 15px 15px 40px;
+  padding: 20px;
+  margin-top: -100px;   /* sube el panel para quedar debajo de la franja roja */
+}
+.panel input {
+  width: 100%;
+  padding: 10px;
+  border: 3px solid var(--gris);
+  background: var(--gris);
+  color: white;
+  font-family: inherit;
+  font-size: 16px;
+}
+.panel input::placeholder {
+  color: white;
+}
+.tipos {
+  background: var(--azul);
+  border: 4px solid white;
+  border-radius: 30px 10px 10px 30px;
+  padding: 15px;
+  margin-top: 20px;
+  color: white;
+}
+.tipos h3 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 11px;
+  margin: 0 0 12px;
+}
+
+/* 9. PÁGINA DE DETALLE DE CADA POKÉMON */
+.detalle {
+  max-width: 750px;
+  margin: 30px auto;
+  background: white;
+  border: 6px solid var(--rojo);
+  border-radius: 20px;
+  padding: 25px;
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.detalle img {
+  width: 260px;
+  max-width: 100%;
+  background: var(--azul);
+  border: 5px solid var(--rojo-oscuro);
+  border-radius: 15px;
+  padding: 15px;
+}
+.info {
+  flex: 1;
+  min-width: 250px;
+}
+.info h2 {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 22px;
+  color: var(--rojo);
+  margin: 0 0 15px;
+}
+.info table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 15px 0;
+}
+.info td {
+  border: 2px solid var(--gris);
+  padding: 8px 12px;
+}
+.info td:first-child {
+  background: #eee;
+  font-weight: 800;
+  width: 40%;
+}
+
+.volver {
+  display: inline-block;
+  margin-top: 10px;
+  background: var(--rojo);
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+  padding: 10px 18px;
+  border-radius: 8px;
+}
+
+/* Texto de la caja azul */
+.tipos a {
+  color: var(--amarillo);
+  font-weight: 800;
+}
+
+/* 10. CONTROL DE MÚSICA (en la franja roja de arriba a la derecha) */
+.musica {
+  position: absolute;
+  top: 6px;
+  right: 25px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--rojo-oscuro);
+  border: 2px solid white;
+  border-radius: 20px;
+  padding: 0 12px;
+  color: white;
+}
+.musica button {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: var(--amarillo);
+  color: #222;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+.musica input {
+  width: 110px;
+  accent-color: var(--amarillo);
+}
+
+/* 11. PARA CELULAR: sin corte diagonal y el panel baja debajo de las tarjetas */
+@media (max-width: 900px) {
+  header { clip-path: none; padding: 15px; }
+  .musica { position: static; align-self: flex-start; }
+  .contenedor { flex-direction: column; }
+  .panel { width: 100%; margin-top: 0; }
+}
+
+
+/* ================================================================
+   12. MEJORAS VISUALES Y ANIMACIONES
+   Todo lo que hay de aquí hacia abajo se AÑADE al diseño original:
+   no cambia colores, formas ni la distribución de la página.
+   ================================================================ */
+
+/* 12.1 Variables nuevas (color de cada tipo y curvas de animación) */
+:root {
+  --suave: cubic-bezier(.2, .8, .2, 1);
+  --rebote: cubic-bezier(.34, 1.56, .64, 1);
+  --sombra: 0 6px 18px rgba(0, 0, 0, .12);
+  --fuente-numeros: 'Orbitron', 'Nunito', sans-serif;
+}
+.normal    { --tc: #a8a878; }
+.fuego     { --tc: #ff7a1a; }
+.agua      { --tc: #3d6fe0; }
+.planta    { --tc: #4caf50; }
+.electrico { --tc: #d9a800; }
+.hielo     { --tc: #3fb0c4; border-color: #3fb0c4; }
+.lucha     { --tc: #c03028; border-color: #c03028; }
+.veneno    { --tc: #9c4dcc; }
+.tierra    { --tc: #b08a2e; }
+.volador   { --tc: #7f94e0; border-color: #7f94e0; }
+.psiquico  { --tc: #e0457a; border-color: #e0457a; }
+.bicho     { --tc: #8c9a10; }
+.roca      { --tc: #9c8626; border-color: #9c8626; }
+.fantasma  { --tc: #705898; border-color: #705898; }
+.dragon    { --tc: #6038f8; border-color: #6038f8; }
+
+/* 12.2 Aspecto general: scroll suave, selección, fondo con textura y foco accesible */
+html { scroll-behavior: smooth; }
+body {
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(0, 0, 0, .06) 1px, transparent 0);
+  background-size: 22px 22px;
+  animation: aparecer .6s ease both;
+}
+::selection { background: var(--amarillo); color: #222; }
+:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 3px; border-radius: 6px; }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: #e9e9e9; }
+::-webkit-scrollbar-thumb { background: var(--rojo); border-radius: 10px; border: 3px solid #e9e9e9; }
+::-webkit-scrollbar-thumb:hover { background: var(--rojo-oscuro); }
+
+/* Transición al cambiar de página */
+body.saliendo { animation: desaparecer .22s ease forwards; }
+
+/* 12.3 Encabezado: entrada, brillo, lente que respira y luces parpadeantes */
+header {
+  animation: bajar .7s var(--suave) both;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .25));
+}
+header::before {            /* brillo suave en la parte superior */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .22), transparent 45%);
+  pointer-events: none;
+}
+.lente {
+  position: relative;
+  background: radial-gradient(circle at 32% 30%, #8ec9ff 0 12%, #4d7cf0 30%, var(--azul-boton) 70%);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, .25), 0 0 18px rgba(0, 162, 232, .8);
+  animation: latido 2.8s ease-in-out infinite;
+}
+.lente::after {             /* reflejo de luz sobre el cristal */
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 11px;
+  width: 14px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .75);
+  transform: rotate(-30deg);
+}
+.punto { box-shadow: 0 0 0 2px rgba(255, 255, 255, .6), 0 0 8px currentColor; animation: parpadeo 2.4s ease-in-out infinite; }
+.p1 { color: #ff3b4d; }
+.p2 { color: var(--amarillo); animation-delay: .3s; }
+.p3 { color: var(--verde); animation-delay: .6s; }
+header h1 {
+  letter-spacing: 1px;
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, .28);
+  animation: aparecer 1s .25s both;
+}
+
+/* Botones de tipo: entran de uno en uno y reaccionan al pasar el ratón */
+.menu-tipos .tipo {
+  transition: transform .25s var(--rebote), filter .2s, box-shadow .25s;
+  animation: surgir .5s var(--rebote) both;
+  font-size: 12px;
+  letter-spacing: .3px;
+}
+.menu-tipos .tipo:nth-child(1)  { animation-delay: .15s; }
+.menu-tipos .tipo:nth-child(2)  { animation-delay: .20s; }
+.menu-tipos .tipo:nth-child(3)  { animation-delay: .25s; }
+.menu-tipos .tipo:nth-child(4)  { animation-delay: .30s; }
+.menu-tipos .tipo:nth-child(5)  { animation-delay: .35s; }
+.menu-tipos .tipo:nth-child(6)  { animation-delay: .40s; }
+.menu-tipos .tipo:nth-child(7)  { animation-delay: .45s; }
+.menu-tipos .tipo:nth-child(8)  { animation-delay: .50s; }
+.menu-tipos .tipo:nth-child(9)  { animation-delay: .55s; }
+.menu-tipos .tipo:nth-child(10) { animation-delay: .60s; }
+.menu-tipos .tipo:nth-child(11) { animation-delay: .65s; }
+.menu-tipos .tipo:nth-child(12) { animation-delay: .70s; }
+.menu-tipos .tipo:nth-child(13) { animation-delay: .75s; }
+.menu-tipos .tipo:nth-child(14) { animation-delay: .80s; }
+.menu-tipos .tipo:nth-child(15) { animation-delay: .85s; }
+.menu-tipos .tipo:nth-child(16) { animation-delay: .90s; }
+.menu-tipos .tipo:hover { transform: translateY(-3px) scale(1.08); box-shadow: 0 6px 12px rgba(0, 0, 0, .3); }
+.menu-tipos .activo { animation: surgir .5s var(--rebote) both, destello 1.8s ease-in-out infinite; }
+
+/* Control de música con ecualizador animado */
+.musica { box-shadow: 0 3px 8px rgba(0, 0, 0, .3); transition: transform .25s var(--rebote); }
+.musica:hover { transform: scale(1.05); }
+.musica button { transition: transform .2s var(--rebote), background .2s; }
+.musica button:hover { transform: scale(1.18); background: #fff36b; }
+.musica button:active { transform: scale(.9); }
+.ecualizador { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+.ecualizador i { width: 3px; height: 4px; background: var(--amarillo); border-radius: 2px; }
+.musica.sonando .ecualizador i { animation: barra .9s ease-in-out infinite; }
+.musica.sonando .ecualizador i:nth-child(2) { animation-delay: .2s; }
+.musica.sonando .ecualizador i:nth-child(3) { animation-delay: .4s; }
+
+/* 12.4 Fondo animado: Poké Balls translúcidas que suben despacio */
+.fondo-animado { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.fondo-animado span {
+  position: absolute;
+  bottom: -90px;
+  width: var(--t, 60px);
+  height: var(--t, 60px);
+  border-radius: 50%;
+  opacity: .07;
+  background:
+    radial-gradient(circle, #fff 0 13%, #222 13% 19%, transparent 19%),
+    linear-gradient(to bottom, var(--rojo) 0 46%, #222 46% 54%, #fff 54%);
+  animation: subir var(--d, 30s) linear infinite;
+  animation-delay: var(--r, 0s);
+}
+
+/* 12.5 Tarjetas: aparecen al hacer scroll, se elevan, brillan y llevan una Poké Ball de marca de agua */
+.tarjeta {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .08);
+  transition: transform .35s var(--suave), box-shadow .35s var(--suave), background .3s;
+  will-change: transform;
+}
+.tarjeta > * { position: relative; z-index: 1; }
+.tarjeta::before {          /* Poké Ball de fondo */
+  content: "";
+  position: absolute;
+  right: -34px;
+  bottom: -34px;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  opacity: .1;
+  background:
+    radial-gradient(circle, #fff 0 13%, #222 13% 19%, transparent 19%),
+    linear-gradient(to bottom, var(--tc, var(--gris)) 0 46%, #222 46% 54%, #fff 54%);
+  transition: transform .6s var(--suave), opacity .3s;
+  z-index: 0;
+}
+.tarjeta::after {           /* destello que cruza la tarjeta */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -90%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .75), transparent);
+  transform: skewX(-20deg);
+  transition: left .8s var(--suave);
+  pointer-events: none;
+  z-index: 2;
+}
+.tarjeta:hover {
+  transform: translateY(-9px) scale(1.035);
+  box-shadow: 0 18px 28px -12px var(--tc, rgba(0, 0, 0, .4)), 0 6px 10px rgba(0, 0, 0, .08);
+}
+.tarjeta:hover::before { transform: rotate(180deg) scale(1.2); opacity: .2; }
+.tarjeta:hover::after { left: 140%; }
+.tarjeta:active { transform: translateY(-3px) scale(.99); }
+.tarjeta img {
+  transition: transform .45s var(--rebote), filter .3s;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, .2));
+}
+.tarjeta:hover img { transform: scale(1.14) rotate(-3deg); animation: flotar 2.2s ease-in-out .45s infinite; }
+.tarjeta h2 { transition: color .25s; line-height: 1.3; }
+.tarjeta:hover h2 { color: var(--tc, #222); }
+.tarjeta p { font-family: var(--fuente-numeros); font-size: 12px; letter-spacing: 1.5px; }
+.tarjeta .tipo { transition: transform .25s var(--rebote); }
+.tarjeta:hover .tipo { transform: translateY(-2px) scale(1.07); }
+.tarjeta img.sin-imagen { opacity: .35; filter: grayscale(1); }
+
+/* Aparición escalonada al hacer scroll (la activa js/efectos.js) */
+.js .tarjeta:not(.visible) { opacity: 0; }
+.tarjeta.visible { animation: entrada .6s var(--suave) backwards; animation-delay: var(--d, 0ms); }
+
+/* Etiquetas de tipo con un poco de relieve */
+.tipo { text-shadow: 0 1px 1px rgba(0, 0, 0, .25); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, .15); letter-spacing: .3px; }
+
+/* 12.6 Panel derecho: foco del buscador, contador y selector de regiones */
+.panel {
+  box-shadow: 0 10px 24px rgba(139, 0, 16, .35), inset 0 0 0 2px rgba(255, 255, 255, .12);
+  animation: deslizar .8s .2s var(--suave) both;
+}
+.panel input {
+  transition: background .25s, border-color .25s, box-shadow .25s;
+  border-radius: 8px;
+}
+.panel input:focus { outline: none; background: #5f5f5f; border-color: var(--amarillo); box-shadow: 0 0 0 4px rgba(255, 230, 0, .35); }
+.contador { color: #fff; font-weight: 800; font-size: 13px; margin: 10px 2px 0; opacity: .9; }
+.contador b { font-family: var(--fuente-numeros); color: var(--amarillo); }
+.atajo { font-size: 11px; color: rgba(255, 255, 255, .8); margin: 4px 2px 0; }
+.atajo kbd { background: rgba(0, 0, 0, .3); border-radius: 4px; padding: 1px 6px; font-family: var(--fuente-numeros); }
+.tipos { box-shadow: inset 0 0 14px rgba(0, 0, 0, .18); }
+#info-tipo .tipo { animation: surgir .4s var(--rebote) both; }
+#info-tipo p { margin: 10px 0 0; animation: aparecer .6s .1s both; }
+
+.regiones h3 { margin-bottom: 10px; }
+.lista-regiones { display: flex; flex-wrap: wrap; gap: 6px; }
+.tipos .reg {
+  --rc: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  padding: 4px 11px;
+  border-radius: 20px;
+  border: 2px solid rgba(255, 255, 255, .85);
+  background: rgba(0, 0, 0, .18);
+  transition: transform .25s var(--rebote), background .25s, border-color .25s, color .25s;
+}
+.tipos .reg:hover { transform: translateY(-2px) scale(1.07); background: var(--rc); border-color: #fff; }
+.tipos .reg.activo { background: var(--rc); border-color: var(--amarillo); box-shadow: 0 0 0 2px rgba(255, 230, 0, .5); }
+
+/* 12.7 Banner de región (Kanto, Johto, Hoenn...) */
+.region-banner {
+  --rc: #e53935;
+  flex: 1 1 100%;
+  color: #fff;
+  border-radius: 20px;
+  border: 4px solid rgba(255, 255, 255, .85);
+  padding: 22px 26px;
+  background: linear-gradient(120deg, var(--rc), #1c1c28 130%);
+  background-size: 160% 160%;
+  box-shadow: 0 10px 24px -10px var(--rc);
+  position: relative;
+  overflow: hidden;
+  animation: entrada .7s var(--suave) both, moverFondo 9s ease-in-out infinite alternate;
+}
+.region-banner::after {
+  content: "";
+  position: absolute;
+  right: -50px;
+  top: -50px;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  opacity: .14;
+  background:
+    radial-gradient(circle, #fff 0 13%, #222 13% 19%, transparent 19%),
+    linear-gradient(to bottom, #fff 0 46%, #222 46% 54%, #ddd 54%);
+  animation: girar 24s linear infinite;
+}
+.region-banner h2 { font-family: 'Press Start 2P', cursive; font-size: 20px; margin: 0 0 12px; text-shadow: 3px 3px 0 rgba(0, 0, 0, .3); position: relative; z-index: 1; }
+.region-banner p { margin: 0 0 12px; max-width: 700px; line-height: 1.5; position: relative; z-index: 1; }
+.datos-region { display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1; }
+.dato {
+  background: rgba(0, 0, 0, .28);
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: 12px;
+  padding: 5px 12px;
+  font-size: 13px;
+  font-weight: 800;
+}
+.dato small { display: block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; opacity: .8; }
+.dato b { font-family: var(--fuente-numeros); font-weight: 700; }
+.vacio {
+  flex: 1 1 100%;
+  text-align: center;
+  background: #fff;
+  border: 4px dashed var(--gris);
+  border-radius: 20px;
+  padding: 36px 20px;
+  color: #444;
+  animation: entrada .6s .15s var(--suave) both;
+}
+.vacio .bola { width: 64px; height: 64px; margin: 0 auto 14px; border-radius: 50%; animation: tambalear 2.2s ease-in-out infinite;
+  background: radial-gradient(circle, #fff 0 13%, #222 13% 19%, transparent 19%), linear-gradient(to bottom, var(--rojo) 0 46%, #222 46% 54%, #fff 54%); }
+.vacio h3 { font-family: 'Press Start 2P', cursive; font-size: 13px; margin: 0 0 10px; line-height: 1.5; }
+.vacio p { margin: 0; }
+
+/* 12.8 Página de detalle: la foto lleva su marco, una Poké Ball que gira y flota */
+.detalle {
+  position: relative;
+  box-shadow: 0 16px 36px -14px rgba(139, 0, 16, .55);
+  animation: zoom .7s var(--suave) both;
+  overflow: hidden;
+}
+.detalle::before {          /* franja con el color del tipo */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 8px;
+  background: linear-gradient(90deg, var(--tc, var(--rojo)), var(--rojo));
+}
+.detalle .foto {
+  position: relative;
+  width: 260px;
+  max-width: 100%;
+  background: var(--azul);
+  border: 5px solid var(--rojo-oscuro);
+  border-radius: 15px;
+  padding: 15px;
+  overflow: hidden;
+  animation: flotar 4s ease-in-out infinite;
+}
+.detalle .foto::before {    /* Poké Ball translúcida que gira detrás */
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 230px;
+  height: 230px;
+  margin: -115px 0 0 -115px;
+  border-radius: 50%;
+  opacity: .22;
+  background:
+    radial-gradient(circle, #fff 0 14%, #222 14% 20%, transparent 20%),
+    linear-gradient(to bottom, #fff 0 46%, #222 46% 54%, #ddd 54%);
+  animation: girar 18s linear infinite;
+}
+.detalle .foto img {
+  position: relative;
+  display: block;
+  width: 100%;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, .35));
+  transition: transform .4s var(--rebote);
+}
+.detalle .foto:hover img { transform: scale(1.08) rotate(2deg); }
+.info h2 { animation: deslizarIzq .6s .15s var(--suave) both; text-shadow: 2px 2px 0 rgba(0, 0, 0, .08); line-height: 1.3; }
+.info > p { animation: aparecer .6s .3s both; line-height: 1.55; }
+.info td { transition: background .25s; }
+.info tr { animation: deslizarIzq .5s var(--suave) both; }
+.info tr:nth-child(1) { animation-delay: .30s; }
+.info tr:nth-child(2) { animation-delay: .38s; }
+.info tr:nth-child(3) { animation-delay: .46s; }
+.info tr:nth-child(4) { animation-delay: .54s; }
+.info tr:nth-child(5) { animation-delay: .62s; }
+.info tr:nth-child(6) { animation-delay: .70s; }
+.info tr:nth-child(7) { animation-delay: .78s; }
+.info tr:hover td:last-child { background: #fffbe0; }
+.info td:first-child { font-size: 14px; }
+.info .tipo { animation: surgir .5s .55s var(--rebote) both; }
+
+/* Cadena de evolución */
+.evolucion h3 { font-family: 'Press Start 2P', cursive; font-size: 11px; color: var(--rojo); margin: 18px 0 10px; }
+.cadena { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.etapa { display: flex; flex-direction: column; gap: 6px; }
+.flecha { font-size: 22px; color: var(--gris); animation: empujar 1.4s ease-in-out infinite; }
+.evo {
+  display: block;
+  width: 86px;
+  text-align: center;
+  text-decoration: none;
+  color: #222;
+  background: #f3f3f3;
+  border: 3px solid #ddd;
+  border-radius: 12px;
+  padding: 6px 4px;
+  font-size: 11px;
+  font-weight: 800;
+  transition: transform .3s var(--rebote), border-color .25s, background .25s, box-shadow .25s;
+  animation: surgir .5s .7s var(--rebote) both;
+}
+.evo img { width: 56px; height: 56px; object-fit: contain; display: block; margin: 0 auto 2px; background: none; border: 0; padding: 0; }
+.evo small { display: block; font-family: var(--fuente-numeros); color: var(--gris); font-size: 10px; }
+.evo:hover { transform: translateY(-4px) scale(1.08); border-color: var(--rojo); background: #fffbe0; box-shadow: 0 8px 14px -6px rgba(0, 0, 0, .3); }
+.evo.actual { border-color: var(--rojo); background: #fff1f1; }
+.sin-evo { margin: 0; color: var(--gris); font-weight: 800; }
+
+/* Botones de la página de detalle */
+.acciones { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.acciones .volver { margin-top: 0; }
+.volver { transition: transform .25s var(--rebote), background .25s, box-shadow .25s; box-shadow: 0 4px 0 var(--rojo-oscuro); }
+.volver:hover { transform: translateY(-3px); background: #ff3b44; box-shadow: 0 7px 0 var(--rojo-oscuro); }
+.volver:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--rojo-oscuro); }
+.volver.sec { background: var(--azul-boton); box-shadow: 0 4px 0 #262d8a; }
+.volver.sec:hover { background: #5560e0; box-shadow: 0 7px 0 #262d8a; }
+.volver.sec:active { box-shadow: 0 1px 0 #262d8a; }
+
+/* 12.9 Elementos flotantes: barra de progreso, botón de subir y pantalla de carga */
+#progreso { position: fixed; top: 0; left: 0; height: 4px; width: 0; z-index: 1000; background: linear-gradient(90deg, var(--amarillo), #ff7a1a); box-shadow: 0 0 8px var(--amarillo); }
+#subir {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 3px solid #222;
+  cursor: pointer;
+  z-index: 900;
+  background: radial-gradient(circle, #fff 0 13%, #222 13% 22%, transparent 22%), linear-gradient(to bottom, var(--rojo) 0 46%, #222 46% 54%, #fff 54%);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .35);
+  opacity: 0;
+  transform: translateY(80px) rotate(-180deg);
+  transition: opacity .3s, transform .5s var(--rebote);
+  pointer-events: none;
+}
+#subir.mostrar { opacity: 1; transform: none; pointer-events: auto; }
+#subir:hover { transform: scale(1.12) rotate(20deg); }
+.cargador {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  background: var(--rojo);
+  animation: ocultar .45s 2s ease forwards;      /* por si el JavaScript falla */
+}
+.cargador.fuera { animation: ocultar .45s ease forwards; }
+.cargador .bola-carga {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 5px solid #222;
+  background: radial-gradient(circle, #fff 0 13%, #222 13% 22%, transparent 22%), linear-gradient(to bottom, #fff 0 46%, #222 46% 54%, #fff 54%);
+  background-color: #fff;
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, .25);
+  animation: girar 1s linear infinite, latido 1s ease-in-out infinite;
+}
+.cargador .bola-carga::before { content: ""; position: absolute; }
+.cargador p { position: absolute; bottom: 18%; margin: 0; color: #fff; font-family: 'Press Start 2P', cursive; font-size: 12px; animation: parpadeo 1s ease-in-out infinite; }
+
+/* 12.10 Animaciones (los "fotogramas") */
+@keyframes aparecer     { from { opacity: 0; } to { opacity: 1; } }
+@keyframes desaparecer  { to { opacity: 0; transform: scale(.985); } }
+@keyframes bajar        { from { transform: translateY(-100%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes deslizar     { from { transform: translateX(60px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes deslizarIzq  { from { transform: translateX(-24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes entrada      { from { transform: translateY(30px) scale(.94); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes zoom         { from { transform: scale(.9) translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes surgir       { from { transform: scale(.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes latido       { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+@keyframes parpadeo     { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@keyframes destello     { 0%, 100% { box-shadow: 0 0 0 0 rgba(255, 230, 0, .7); } 50% { box-shadow: 0 0 0 7px rgba(255, 230, 0, 0); } }
+@keyframes flotar       { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes tambalear    { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(12deg); } }
+@keyframes girar        { to { transform: rotate(360deg); } }
+@keyframes subir        { from { transform: translateY(0) rotate(0); } to { transform: translateY(-115vh) rotate(360deg); } }
+@keyframes barra        { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+@keyframes empujar      { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+@keyframes moverFondo   { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+@keyframes ocultar      { to { opacity: 0; visibility: hidden; } }
+
+/* 12.11 Adaptación a celular (se suma a la sección 11) */
+@media (max-width: 900px) {
+  header { filter: none; }
+  .panel { animation-name: entrada; }
+  .region-banner h2 { font-size: 15px; }
+  .detalle .foto { margin: 0 auto; }
+  #subir { width: 46px; height: 46px; right: 14px; bottom: 14px; }
+}
+@media (max-width: 520px) {
+  .contenedor { padding: 18px 12px; }
+  .tarjetas { justify-content: center; gap: 14px; }
+  header h1 { font-size: 16px; margin: 0 8px; }
+}
+
+/* 12.12 Accesibilidad: si la persona prefiere menos movimiento, se apagan las animaciones */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .fondo-animado { display: none; }
+}
+
+/* Enlaces dentro de la tabla de datos */
+.info td a { color: var(--rojo); font-weight: 800; text-decoration-thickness: 2px; text-underline-offset: 3px; transition: color .2s; }
+.info td a:hover { color: var(--azul-boton); }
