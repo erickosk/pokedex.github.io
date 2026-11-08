@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ed1c24">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <!-- Tipografías de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=Orbitron:wght@500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <!-- Enlace al archivo de estilos -->
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Pokédex - 1025 Pokémon y 9 regiones</title>
+  <meta name="description" content="Pokédex con los 1025 Pokémon de las 9 generaciones: estadísticas, debilidades, evoluciones, movimientos, regiones, comparador y favoritos.">
+  <meta property="og:title" content="Pokédex">
+  <meta property="og:description" content="Los 1025 Pokémon, 18 tipos y las 9 regiones del mundo Pokémon.">
+  <meta property="og:type" content="website">
+</head>
+<body>
+
+  <!-- ENCABEZADO: se escribe desde js/cabecera.js (igual en todas las páginas) -->
+  <script src="js/datos.js"></script>
+  <script src="js/regiones.js"></script>
+  <script src="js/idioma.js"></script>
+  <script src="js/favoritos.js"></script>
+  <script src="js/iconos.js"></script>
+  <script src="js/cabecera.js"></script>
+
+  <div class="contenedor">
+
+    <!-- TARJETAS: se dibujan desde js/datos.js (cada una es un enlace a su página) -->
+    <section class="tarjetas" id="tarjetas" aria-live="polite"></section>
+
+    <!-- PANEL ROJO DE LA DERECHA (buscar + tipo + regiones + herramientas) -->
+    <aside class="panel">
+      <input type="text" id="buscar" data-i18n-ph="buscar" placeholder="buscar" aria-label="Buscar Pokémon" autocomplete="off">
+      <p class="atajo" data-i18n="atajo">Pulsa <kbd>/</kbd> para buscar</p>
+      <p class="contador" id="contador"></p>
+
+      <div class="tipos">
+        <h3 data-i18n="elemento">Elemento / Tipo</h3>
+        <div id="info-tipo">
+          <p data-i18n="elige_tipo">Elige un tipo en la barra de arriba.</p>
+        </div>
+      </div>
+
+      <div class="tipos regiones">
+        <h3 data-i18n="regiones">Regiones</h3>
+        <div class="lista-regiones" id="lista-regiones"></div>
+      </div>
+
+      <div class="tipos herramientas">
+        <h3 data-i18n="herramientas">Herramientas</h3>
+        <div id="herramientas"></div>
+      </div>
+    </aside>
+
+  </div>
+
+  <noscript><p style="text-align:center;padding:30px">Esta Pokédex necesita JavaScript para mostrar los Pokémon.</p></noscript>
+
+  <script src="js/efectos.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/musica.js"></script>
+
+</body>
+</html>
