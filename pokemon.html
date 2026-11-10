@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ed1c24">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <!-- Tipografías de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&family=Orbitron:wght@500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <!-- Enlace al archivo de estilos -->
+  <link rel="stylesheet" href="css/styles.css">
+  <title>Pokémon - Pokédex</title>
+  <meta name="description" content="Ficha de un Pokémon de la Pokédex.">
+</head>
+<body>
+
+  <!-- ENCABEZADO: se escribe desde js/cabecera.js (igual en todas las páginas) -->
+  <script src="js/datos.js"></script>
+  <script src="js/regiones.js"></script>
+  <script src="js/idioma.js"></script>
+  <script src="js/favoritos.js"></script>
+  <script src="js/iconos.js"></script>
+  <script src="js/cabecera.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/tipos.js"></script>
+
+  <!-- INFORMACIÓN DEL POKÉMON: la dibuja js/detalle.js según ?id=nombre -->
+  <main class="detalle" id="detalle"></main>
+
+  <noscript><p style="text-align:center;padding:30px">Esta Pokédex necesita JavaScript para mostrar los Pokémon.</p></noscript>
+
+  <script src="js/efectos.js"></script>
+  <script src="js/detalle.js"></script>
+  <script src="js/musica.js"></script>
+
+</body>
+</html>
